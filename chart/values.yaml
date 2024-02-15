@@ -12,7 +12,7 @@ serviceAccount:
  serviceAccountName: "pod-clean-up"
 
 image:
-  name: 772933137749.dkr.ecr.us-west-2.amazonaws.com/pod-clean-up
+  name: "image_name"
   tag: latest
   pullPolicy: IfNotPresent
 
