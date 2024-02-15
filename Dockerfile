@@ -7,6 +7,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 
 ADD scripts /usr/src/scripts
 WORKDIR /usr/src/scripts/
-  CMD ["bash", "delete-pod.sh"]
+CMD ["bash", "delete-pod.sh"]
 
 
