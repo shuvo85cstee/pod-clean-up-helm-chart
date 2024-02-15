@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ $.Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ $.Chart.Name }}
+    chart: {{ $.Chart.Name }}
+spec:
+  schedule: "{{ .Values.cronjob.schedule }}"
+  {{- with .Values.cronjob.concurrencyPolicy }}
+  concurrencyPolicy: {{ . }}
+  {{- end }}
+  {{- with .Values.cronjob.failedJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ . }}
+  {{- end }}
+  {{- with .Values.cronjob.successfulJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ . }}
+  {{- end }}
+  {{- with .Values.cronjob.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{ . }}
+  {{- end }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .Chart.Name }}
+            image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command:
+            - bash
+            args:
+            - delete-pod.sh
+            resources:
+              requests:
+                cpu: {{ .Values.resources.requests.cpu }} 
+                memory: {{ .Values.resources.requests.memory }} 
+          serviceAccountName: {{ .Values.serviceAccount.serviceAccountName }}
+          restartPolicy: {{ .Values.cronjob.jobRestartPolicy }}
+

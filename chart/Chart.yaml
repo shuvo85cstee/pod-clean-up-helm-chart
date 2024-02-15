@@ -1,0 +1,7 @@
+apiVersion: v2
+name: pod-clean-up
+description: A Helm chart to delete pods in error state
+version: 1.0.0
+appVersion: 1.0.0
+
+

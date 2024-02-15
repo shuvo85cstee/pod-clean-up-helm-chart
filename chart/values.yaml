@@ -1,0 +1,25 @@
+cronjob:
+  # Run Job every hours
+  schedule: "0 * * * *"
+  concurrencyPolicy: Replace
+  failedJobsHistoryLimit: ""
+  successfulJobsHistoryLimit: 1
+  jobRestartPolicy: Never
+  startingDeadlineSeconds: ""
+  
+serviceAccount:
+ create:  true
+ serviceAccountName: "pod-clean-up"
+
+image:
+  name: 772933137749.dkr.ecr.us-west-2.amazonaws.com/pod-clean-up
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+replicas: 1
+namespace: "k8s_namespace"
